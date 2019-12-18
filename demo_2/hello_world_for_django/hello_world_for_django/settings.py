@@ -119,3 +119,49 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': '/usr/local/var/log/django.debug.log',
+            'maxBytes': 1024 * 1024 * 50,  # 50 MB
+            'backupCount': 5,
+        },
+        'info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': '/usr/local/var/log/django.info.log',
+            'maxBytes': 1024 * 1024 * 50,  # 50 MB
+            'backupCount': 5,
+        },
+    },
+    'loggers': {
+        'api': {
+            'handlers': ['console', 'debug', 'info'],
+            'level': 'DEBUG',
+        },
+        'celery': {
+            'handlers': ['console', 'debug', 'info'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+    },
+}
