@@ -1,5 +1,5 @@
 Django==3.0
 celery==4.3.0
-flower==0.9.3
+flower==1.2.0
 jobtastic==2.1.1
 redis==3.3.11
